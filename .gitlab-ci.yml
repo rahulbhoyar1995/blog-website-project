@@ -1,0 +1,57 @@
+# .gitlab-ci.yml
+
+# Set the desired image for the pipeline
+image: python:3.9
+
+# Define the stages for the pipeline
+stages:
+  - build
+  - test
+  - deploy
+
+# Build stage
+
+migrations:
+  stage: build
+  script:
+    - pip install -r requirements.txt
+    - python manage.py makemigrations
+    - python manage.py migrate
+
+# Test stage
+test:
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - python manage.py test
+ 
+# Deploy stage
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy your Django project here"
+    # Add any commands needed for deployment
+
+# Set environment variables for the pipeline
+variables:
+  DJANGO_SETTINGS_MODULE: "blog_website_project.settings"
+  # Add any additional environment variables required for your Django project
+
+# Define the cache configuration
+cache:
+  paths:
+    - .pip-cache/
+    - venv/
+
+# Specify additional configuration if required
+# ...
+
+# Define before_script if necessary
+# ...
+
+# Define after_script if necessary
+# ...
+
+# Specify other configuration options as needed
+# ...
+
